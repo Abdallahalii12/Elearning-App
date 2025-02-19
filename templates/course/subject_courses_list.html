@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+
+{% block title %}
+E-Learning Platform
+{% endblock title %}
+
+{% block content %}
+
+<!-- Navbar -->
+<nav class="bg-gray-900 shadow-md py-4">
+    <div class="container mx-auto flex justify-between items-center px-6">
+        <a href="#" class="text-2xl font-bold text-yellow-400">E-Learn</a>
+        <ul class="flex space-x-6">
+            <li><a href="{% url 'accounts:view_profile' %}" class="text-gray-300 hover:text-yellow-400">Welcome, {{ request.user }}</a></li>
+            <li><a href="#" class="text-gray-300 hover:text-yellow-400">Courses</a></li>
+            <li><a href="#" class="text-gray-300 hover:text-yellow-400">Categories</a></li>
+            <li><a href="{% url 'accounts:sign_out' %}" class="text-gray-300 hover:text-yellow-400">Sign-out</a></li>
+        </ul>
+    </div>
+</nav>
+
+<!-- Hero Section -->
+<section class="bg-gradient-to-r from-indigo-700 to-pink-600 text-white py-16 text-center px-6">
+    <div class="container mx-auto">
+        <h1 class="text-5xl font-extrabold mb-6">Discover and Learn New Skills</h1>
+        <p class="text-lg mb-4">Explore our wide range of courses and start your learning journey today.</p>
+        <a href="#" class="inline-block bg-yellow-400 text-gray-900 font-bold py-2 px-6 rounded-lg hover:bg-yellow-500">Browse Courses</a>
+    </div>
+</section>
+
+<!-- Subjects Section -->
+<section class="py-12 px-6 bg-gray-100">
+    <div class="container mx-auto">
+        <h2 class="text-4xl font-bold mb-8 text-center text-gray-800">Our Subjects</h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {% for subject in subjects %}
+            <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-lg border-l-4 border-yellow-400">
+                <h3 class="text-xl font-bold mb-2 text-gray-800">{{ subject.title }}</h3>
+                <p class="text-gray-600 mb-4">{{ subject.desctiption }}</p>
+                <ul class="list-disc pl-5 text-gray-700">
+                    {% for course in subject.courses.all %}
+                    <li><a href="{% url 'courses:course_detail' course.slug %}" class="text-yellow-500 hover:underline">{{ course.title }}</a></li>
+                    {% empty %}
+                    <li>No courses available in this subject</li>
+                    {% endfor %}
+                </ul>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<!-- Courses Section -->
+<section class="py-12 px-6">
+    <div class="container mx-auto">
+        <h2 class="text-4xl font-bold mb-8 text-center text-gray-800">Our Courses</h2>
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
+            {% for _ in "123456" %}  {# Placeholder for real course data #}
+            <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-lg border-b-4 border-pink-500">
+                <img src="https://via.placeholder.com/300x200" alt="Course Image" class="w-full h-auto rounded mb-4">
+                <h3 class="text-xl font-bold mb-2 text-gray-800">Machine Learning A-Z</h3>
+                <p class="text-gray-600 mb-4">Master machine learning algorithms and techniques.</p>
+                <a href="#" class="text-pink-500 hover:underline">Start Learning</a>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer class="bg-gray-900 text-gray-300 py-6 text-center">
+    <div class="container mx-auto">
+        <p>&copy; 2024 E-Learn Platform. All rights reserved.</p>
+    </div>
+</footer>
+
+{% endblock content %}
